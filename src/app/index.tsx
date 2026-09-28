@@ -1,9 +1,11 @@
+import { Header } from "@/components/Header";
 import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
   return (
-    <View className="bg-blue-700">
-      <Text className="text-lg">Delivery app</Text>
-    </View>
+    <SafeAreaView className="flex-1 bg-[#F8FAFC]">
+      <Header />
+    </SafeAreaView>
   )
 }
