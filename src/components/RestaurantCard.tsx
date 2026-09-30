@@ -38,7 +38,7 @@ export const RestaurantCard = ({ name, rating, deliveryTime, category, image }: 
                     <Text className="text-sm text-[#64748B]">
                         {deliveryTime} min
                     </Text>
-                    
+
                 </View>
 
                 <Text className="mt-1 text-sm text-[#64748B]">
