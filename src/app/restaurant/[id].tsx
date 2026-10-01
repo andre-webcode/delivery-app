@@ -12,7 +12,7 @@ export default function Restaurant() {
     if (!restaurant) {
         return (
             <View className="flex-1 items-center justify-center">
-                <Text>Restaurante não encontrado.</Text>
+                <Text  className="text-base text-[#64748B]">Restaurante não encontrado.</Text>
             </View>
         )
     }
