@@ -1,16 +1,20 @@
 import { Star } from "lucide-react-native"
-import { Image, ImageSourcePropType, Text, View } from "react-native"
+import { Image, ImageSourcePropType, Pressable, Text, View } from "react-native"
 
 type Props = {
+    id: number;
     name: string;
     rating: number;
     deliveryTime: number;
     category: string;
     image: ImageSourcePropType;
+    onPress: () => void;
 }
-export const RestaurantCard = ({ name, rating, deliveryTime, category, image }: Props) => {
+export const RestaurantCard = ({id, name, rating, deliveryTime, category, image, onPress }: Props) => {
     return (
-        <View className="w-72 overflow-hidden rounded-2xl bg-[#E8EEF5]">
+        <Pressable
+            onPress={onPress}
+            className="w-72 overflow-hidden rounded-2xl bg-[#E8EEF5]">
 
 
             <Image
@@ -35,6 +39,7 @@ export const RestaurantCard = ({ name, rating, deliveryTime, category, image }: 
                     <Text className="text-sm text-[#64748B]">
                         •
                     </Text>
+
                     <Text className="text-sm text-[#64748B]">
                         {deliveryTime} min
                     </Text>
@@ -45,6 +50,6 @@ export const RestaurantCard = ({ name, rating, deliveryTime, category, image }: 
                     {category}
                 </Text>
             </View>
-        </View>
+        </Pressable>
     )
 }

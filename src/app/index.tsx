@@ -6,67 +6,85 @@ import { FlatList, ScrollView, Text, View } from "react-native";
 import { CupSoda, Fish, IceCreamBowl, Pizza, Sandwich, Utensils } from "lucide-react-native";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { restaurants } from "@/data/restaurants";
+import { useRouter } from "expo-router";
 
 
 export default function Home() {
-  return (
-    <SafeAreaView className="flex-1 bg-[#F8FAFC]">
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Header />
-        <SearchBar />
+	const router = useRouter();
 
-        <View className="mt-6 px-5">
-          <Text className="mb-4 text-lg font-bold text-[#102A43]">
-            Categorias
-          </Text>
 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          >
-            <View className="flex-row gap-5 px-5">
-              <CategoryItem icon={Sandwich} name="Lanches" />
-              <CategoryItem icon={Pizza} name="Pizza" />
-              <CategoryItem icon={Utensils} name="Fritas" />
-              <CategoryItem icon={CupSoda} name="Bebidas" />
-              <CategoryItem icon={IceCreamBowl} name="Sobremesas" />
-              <CategoryItem icon={Fish} name="Sushi" />
-            </View>
-          </ScrollView>
-        </View>
+	const handleRestaurantPress = (id: number) => {
+		router.push({
+			pathname: "/restaurant/[id]",
+			params: {
+				id: id.toString(),
+			}
+		})
+	}
 
-        <View className="my-6 items-center px-5">
 
-          <Text className="mb-4 self-start text-lg font-bold text-[#102A43]">
-            Restaurantes
-          </Text>
 
-          <FlatList
-            data={restaurants}
-            keyExtractor={(item) => item.id.toString()}
-            showsHorizontalScrollIndicator={false}
-            className="w-full"
-            renderItem={({ item }) => (
+	return (
+		<SafeAreaView className="flex-1 bg-[#F8FAFC]">
+			<ScrollView showsVerticalScrollIndicator={false}>
 
-              <View className="mr-5">
-                <RestaurantCard
-                  name={item.name}
-                  rating={item.rating}
-                  deliveryTime={item.deliveryTime}
-                  category={item.category}
-                  image={item.image}
+				<Header />
+				<SearchBar />
 
-                />
+				<View className="mt-6 px-5">
+					<Text className="mb-4 text-lg font-bold text-[#102A43]">
+						Categorias
+					</Text>
 
-              </View>
-            )}
-            horizontal
-          />
+					<ScrollView
+						horizontal
+						showsHorizontalScrollIndicator={false}
+					>
+						<View className="flex-row gap-5 px-5">
+							<CategoryItem icon={Sandwich} name="Lanches" />
+							<CategoryItem icon={Pizza} name="Pizza" />
+							<CategoryItem icon={Utensils} name="Fritas" />
+							<CategoryItem icon={CupSoda} name="Bebidas" />
+							<CategoryItem icon={IceCreamBowl} name="Sobremesas" />
+							<CategoryItem icon={Fish} name="Sushi" />
+						</View>
+					</ScrollView>
+				</View>
 
-        </View>
+				<View className="my-6 items-center px-5">
 
-      </ScrollView>
-    </SafeAreaView >
+					<Text className="mb-4 self-start text-lg font-bold text-[#102A43]">
+						Restaurantes
+					</Text>
 
-  )
+					<FlatList
+						data={restaurants}
+						keyExtractor={(item) => item.id.toString()}
+						showsHorizontalScrollIndicator={false}
+						className="w-full"
+						renderItem={({ item }) => (
+
+							<View className="mr-5">
+								<RestaurantCard
+									id={item.id}
+									name={item.name}
+									rating={item.rating}
+									deliveryTime={item.deliveryTime}
+									category={item.category}
+									image={item.image}
+									onPress={() => handleRestaurantPress(item.id)}
+
+								/>
+
+							</View>
+						)}
+						horizontal
+					/>
+
+				</View>
+
+			</ScrollView>
+		</SafeAreaView >
+
+	)
 }
