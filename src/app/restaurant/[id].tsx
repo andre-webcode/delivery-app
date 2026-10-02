@@ -1,18 +1,23 @@
+import { ProductCard } from "@/components/ProductCard";
+import { products } from "@/data/products";
 import { restaurants } from "@/data/restaurants";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ArrowLeft, Star } from "lucide-react-native";
-import { Image, Pressable, Text, View } from "react-native";
+import { FlatList, Image, Pressable, Text, View } from "react-native";
 
 export default function Restaurant() {
     const { id } = useLocalSearchParams<{ id: string }>();
     const router = useRouter();
 
-    const restaurant = restaurants.find((item) => item.id === parseInt(id))
+
+    const restaurant = restaurants.find((item) => item.id === parseInt(id));
+
+    const restaurantProducts = products.filter((item) => item.restaurantId === parseInt(id));
 
     if (!restaurant) {
         return (
             <View className="flex-1 items-center justify-center">
-                <Text  className="text-base text-[#64748B]">Restaurante não encontrado.</Text>
+                <Text className="text-base text-[#64748B]">Restaurante não encontrado.</Text>
             </View>
         )
     }
@@ -61,6 +66,19 @@ export default function Restaurant() {
 
                 <Text className="mt-1 text-sm text-[#64748B]">{restaurant.category}</Text>
             </View>
+
+            <FlatList
+                data={restaurantProducts}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => (
+                    <ProductCard
+                        name={item.name}
+                        description={item.description}
+                        price={item.price}
+                        image={item.image}
+                    />
+                )}
+            />
         </View>
 
     )
