@@ -1,4 +1,6 @@
-export const products = [
+import { Product } from "@/types/product";
+
+export const products:Product[] = [
     // Burger House - id 1
     {
       id: 1,

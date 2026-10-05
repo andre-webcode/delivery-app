@@ -1,11 +1,16 @@
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/data/products";
 import { restaurants } from "@/data/restaurants";
+import { useCartStore } from "@/store/cartStore";
+import { Product } from "@/types/product";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ArrowLeft, Star } from "lucide-react-native";
 import { FlatList, Image, Pressable, Text, View } from "react-native";
 
 export default function Restaurant() {
+    const addToCart = useCartStore((state) => state.addToCart);
+    const cart = useCartStore((state) => state.cart);
+
     const { id } = useLocalSearchParams<{ id: string }>();
     const router = useRouter();
 
@@ -67,6 +72,7 @@ export default function Restaurant() {
                 <Text className="mt-1 text-sm text-[#64748B]">{restaurant.category}</Text>
             </View>
 
+
             <FlatList
                 data={restaurantProducts}
                 keyExtractor={(item) => item.id.toString()}
@@ -76,6 +82,7 @@ export default function Restaurant() {
                         description={item.description}
                         price={item.price}
                         image={item.image}
+                        onAddToCart={() => addToCart(item)}
                     />
                 )}
             />
