@@ -7,6 +7,7 @@ type CartStore = {
     addToCart: (product: Product) => void;
     increaseQuantity: (productId: number) => void;
     decreaseQuantity: (productId: number) => void;
+    clearCart: () => void;
 }
 export const useCartStore = create<CartStore>((set) => ({
     cart: [],
@@ -85,4 +86,10 @@ export const useCartStore = create<CartStore>((set) => ({
             };
         });
     },
+
+    clearCart: () => {
+        set({
+          cart: [],
+        });
+      },
 }))

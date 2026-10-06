@@ -1,18 +1,24 @@
 import { PaymentOption } from "@/components/PaymentOption";
 import { useCartStore } from "@/store/cartStore";
+import { useOrderStore } from "@/store/orderStore";
+import { PaymentMethod } from "@/types/order";
 import { calculateCartTotal, calculateSubtotal } from "@/utils/cart";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
 
-type PaymentMethod = "pix" | "credit" | "cash";
 
 export default function Checkout() {
     const cart = useCartStore((state) => state.cart);
     const total = calculateCartTotal(cart);
+    const clearCart = useCartStore((state) => state.clearCart);
 
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("pix")
+
+    const createOrder = useOrderStore((state) => state.createOrder);
+
+    const address = "Rua Exemplo, 123, Bairro Centro";
 
 
     const handlePix = () => {
@@ -29,6 +35,15 @@ export default function Checkout() {
 
 
     const handleFinalizeOrder = () => {
+        createOrder(
+            cart,
+            total,
+            paymentMethod,
+            address
+        );
+
+        clearCart();
+
         router.push("/order-confirmed");
     };
 
