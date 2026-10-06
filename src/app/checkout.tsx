@@ -1,11 +1,36 @@
+import { PaymentOption } from "@/components/PaymentOption";
 import { useCartStore } from "@/store/cartStore";
 import { calculateCartTotal, calculateSubtotal } from "@/utils/cart";
-import { Text, View } from "react-native";
+import { router } from "expo-router";
+import { useState } from "react";
+import { Pressable, Text, View } from "react-native";
+
+
+type PaymentMethod = "pix" | "credit" | "cash";
 
 export default function Checkout() {
     const cart = useCartStore((state) => state.cart);
     const total = calculateCartTotal(cart);
 
+    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("pix")
+
+
+    const handlePix = () => {
+        setPaymentMethod("pix");
+    }
+
+    const handleCreditCard = () => {
+        setPaymentMethod("credit");
+    }
+
+    const handleCash = () => {
+        setPaymentMethod("cash");
+    }
+
+
+    const handleFinalizeOrder = () => {
+        router.push("/order-confirmed");
+    };
 
     return (
 
@@ -68,6 +93,40 @@ export default function Checkout() {
                     </Text>
                 </View>
             </View>
+
+            <View className="mt-10">
+
+                <Text className="text-lg font-bold text-[#102A43]">
+                    Forma de pagamento
+                </Text>
+
+                <PaymentOption
+                    label="Pix"
+                    selected={paymentMethod === "pix"}
+                    onPress={handlePix}
+                />
+
+                <PaymentOption
+                    label="Cartão de crédito"
+                    selected={paymentMethod === "credit"}
+                    onPress={handleCreditCard}
+                />
+
+                <PaymentOption
+                    label="Dinheiro"
+                    selected={paymentMethod === "cash"}
+                    onPress={handleCash}
+                />
+            </View>
+
+
+            <Pressable  onPress={handleFinalizeOrder}
+             className="mt-8 rounded-2xl bg-[#102A43] py-4"
+            >
+                <Text className="text-center text-base font-bold text-white">
+                    Finalizar pedido
+                </Text>
+            </Pressable>
 
         </View>
 
