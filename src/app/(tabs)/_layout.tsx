@@ -1,7 +1,14 @@
+import { useCartStore } from "@/store/cartStore";
+import { calculateCartItemCount } from "@/utils/cart";
 import { Tabs } from "expo-router";
 import { ClipboardList, House, Search, ShoppingCart, UserRound } from "lucide-react-native";
 
 export default function TabLayout() {
+    const cart = useCartStore((state) => state.cart);
+
+    const itemCount = calculateCartItemCount(cart);
+
+
     return (
         <Tabs screenOptions={{
             headerShown: false,
@@ -34,6 +41,11 @@ export default function TabLayout() {
                 name="cart"
                 options={{
                     title: "Carrinho",
+                    tabBarBadge: itemCount > 0 ? itemCount : undefined,
+                    tabBarBadgeStyle: {
+                        backgroundColor: "#F97316",
+                        color: "#FFFFFF",
+                    },
                     tabBarIcon: ({ color, size }) => (
                         <ShoppingCart color={color} size={size} />
                     ),

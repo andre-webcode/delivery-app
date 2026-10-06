@@ -1,8 +1,10 @@
+import { CartBottomBar } from "@/components/CartBottomBar";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/data/products";
 import { restaurants } from "@/data/restaurants";
 import { useCartStore } from "@/store/cartStore";
 import { Product } from "@/types/product";
+import { calculateCartItemCount, calculateCartTotal } from "@/utils/cart";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ArrowLeft, Star } from "lucide-react-native";
 import { FlatList, Image, Pressable, Text, View } from "react-native";
@@ -10,6 +12,8 @@ import { FlatList, Image, Pressable, Text, View } from "react-native";
 export default function Restaurant() {
     const addToCart = useCartStore((state) => state.addToCart);
     const cart = useCartStore((state) => state.cart);
+    const itemCount = calculateCartItemCount(cart);
+    const total = calculateCartTotal(cart);
 
     const { id } = useLocalSearchParams<{ id: string }>();
     const router = useRouter();
@@ -26,6 +30,10 @@ export default function Restaurant() {
             </View>
         )
     }
+
+    const handleOpenCart = () => {
+        router.push("/cart");
+    };
 
 
     return (
@@ -86,6 +94,15 @@ export default function Restaurant() {
                     />
                 )}
             />
+
+
+            {cart.length > 0 && (
+                <CartBottomBar
+                    itemCount={itemCount}
+                    total={total}
+                    onPress={handleOpenCart}
+                />
+            )}
         </View>
 
     )
