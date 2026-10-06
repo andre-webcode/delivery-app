@@ -1,9 +1,27 @@
 import { useOrderStore } from "@/store/orderStore";
-import { Text, View } from "react-native";
+import { OrderStatus } from "@/types/order";
+import { router } from "expo-router";
+import { Pressable, Text, View } from "react-native";
 
 export default function OrderConfirmed() {
   const order = useOrderStore((state) => state.order);
 
+
+  const getStatusLabel = (status: OrderStatus) => {
+    if (status === "preparing") {
+      return "Preparando seu pedido";
+    }
+
+    if (status === "on_the_way") {
+      return "Seu pedido está a caminho";
+    }
+
+    return "Pedido entregue";
+  };
+
+  const handleTrackOrder = () => {
+    router.push("/order-tracking");
+  };
 
   return (
     <View className="flex-1 items-center justify-center bg-[#F8FAFC] px-5">
@@ -16,8 +34,21 @@ export default function OrderConfirmed() {
       </Text>
 
       <Text className="mt-3 text-center text-base text-[#102A43]">
-       Total: R$ {order?.total.toFixed(2)}
+        Total: R$ {order?.total.toFixed(2)}
       </Text>
+
+      <Text className="mt-4 text-base font-bold text-[#102A43]">
+        {getStatusLabel(order?.status ?? "preparing")}
+      </Text>
+
+      <Pressable
+        onPress={handleTrackOrder}
+        className="mt-10 rounded-2xl bg-[#102A43] py-4 px-5"
+      >
+        <Text className="text-center text-base font-bold text-white">
+          Acompanhar pedido
+        </Text>
+      </Pressable>
     </View>
   );
 }
