@@ -1,23 +1,12 @@
 import { useOrderStore } from "@/store/orderStore";
 import { OrderStatus } from "@/types/order";
+import { getStatusLabel } from "@/utils/order";
 import { router } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
 export default function OrderConfirmed() {
   const order = useOrderStore((state) => state.order);
 
-
-  const getStatusLabel = (status: OrderStatus) => {
-    if (status === "preparing") {
-      return "Preparando seu pedido";
-    }
-
-    if (status === "on_the_way") {
-      return "Seu pedido está a caminho";
-    }
-
-    return "Pedido entregue";
-  };
 
   const handleTrackOrder = () => {
     router.push("/order-tracking");
