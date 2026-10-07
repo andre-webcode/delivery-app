@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import type { Order, PaymentMethod } from "@/types/order";
+import type { Order, OrderStatus, PaymentMethod } from "@/types/order";
 import type { CartItem } from "@/types/cart";
 
 type OrderStore = {
@@ -12,6 +12,7 @@ type OrderStore = {
     paymentMethod: PaymentMethod,
     address: string
   ) => void;
+  updateOrderStatus: (status: OrderStatus) => void;
 };
 
 export const useOrderStore = create<OrderStore>((set) => ({
@@ -31,4 +32,11 @@ export const useOrderStore = create<OrderStore>((set) => ({
       order: newOrder,
     });
   },
+
+  updateOrderStatus: (status) => {
+    set((state) => ({
+      order: state.order ? { ...state.order, status, } : null,
+    }));
+  },
+
 }));

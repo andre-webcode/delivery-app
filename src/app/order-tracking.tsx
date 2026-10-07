@@ -1,6 +1,8 @@
 import { useOrderStore } from "@/store/orderStore";
 import { OrderStatus } from "@/types/order";
 import { getStatusLabel } from "@/utils/order";
+import { Check, CircleDot } from "lucide-react-native";
+import { useEffect } from "react";
 import { Text, View } from "react-native";
 
 const statusSteps: { status: OrderStatus; label: string; }[] = [
@@ -20,7 +22,34 @@ const statusSteps: { status: OrderStatus; label: string; }[] = [
 
 export default function OrderTracking() {
 	const order = useOrderStore((state) => state.order);
+	const updateOrderStatus = useOrderStore((state) => state.updateOrderStatus);
 
+	useEffect(() => {
+		if (!order) {
+			return;
+		}
+
+		if (order.status === "preparing") {
+			const timer = setTimeout(() => {
+				updateOrderStatus("on_the_way");
+			}, 5000);
+
+			return () => {
+				clearTimeout(timer);
+			}
+		}
+
+		if (order.status === "on_the_way") {
+			const timer = setTimeout(() => {
+				updateOrderStatus("delivered");
+			}, 5000);
+
+			return () => {
+				clearTimeout(timer);
+			};
+		}
+
+	}, [order?.status, updateOrderStatus]);
 
 	if (!order) {
 		return (
@@ -62,7 +91,8 @@ export default function OrderTracking() {
 			<View className="relative mt-6 gap-5">
 				<View className="absolute top-2 bottom-2 left-[7px]  w-0.5 bg-[#CBD5E1]" />
 				{statusSteps.map((step, index) => {
-					const isCompleted = index <= currentStatusIndex;
+					const isCompleted = index < currentStatusIndex;
+					const isCurrent = index === currentStatusIndex;
 
 					return (
 						<View
@@ -72,14 +102,25 @@ export default function OrderTracking() {
 							<View
 								className={
 									isCompleted
-										? "h-4 w-4 rounded-full bg-[#102A43]"
-										: "h-4 w-4 rounded-full bg-[#CBD5E1]"
+										? "h-6 w-6 items-center justify-center rounded-full bg-[#102A43]"
+										: isCurrent
+											? "h-6 w-6 items-center justify-center rounded-full border-2 border-[#102A43] bg-white"
+											: "h-6 w-6 rounded-full bg-[#CBD5E1]"
 								}
-							/>
+							>
+								{isCompleted && (
+									<Check size={14} color="#ffffff" />
+								)}
+
+								{isCurrent && (
+									<CircleDot size={16} color="#102A43" />
+								)}
+
+							</View>
 
 							<Text
 								className={
-									isCompleted
+									isCurrent || isCompleted
 										? "ml-3 text-base font-bold text-[#102A43]"
 										: "ml-3 text-base text-[#94A3B8]"
 								}
