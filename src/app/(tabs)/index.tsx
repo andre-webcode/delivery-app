@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SearchBar } from "@/components/SearchBar";
 import { CategoryItem } from "@/components/CategoryItem";
-import { FlatList, ScrollView, Text, View } from "react-native";
+import { FlatList, Image, ScrollView, Text, View } from "react-native";
 import { CupSoda, Fish, IceCreamBowl, Pizza, Sandwich, Utensils } from "lucide-react-native";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { restaurants } from "@/data/restaurants";
@@ -30,6 +30,36 @@ export default function Home() {
 
 				<Header />
 				<SearchBar />
+
+			
+				<View className="mx-5 mt-6 overflow-hidden rounded-3xl bg-[#102A43]">
+					<View className="h-48 flex-row items-center px-4 py-3">
+						
+						<View className="z-10 flex-1 pr-1">
+							<Text className="self-start rounded-full bg-[#FDE68A] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#102A43]">
+								Oferta especial
+							</Text>
+
+							<Text className="mt-3 text-xl font-extrabold leading-6 text-white">
+								Seu pedido favorito, na sua porta!
+							</Text>
+
+							<Text className="mt-2 text-sm leading-5 text-[#D9E8F5]">
+								Peça seus favoritos e receba com praticidade.
+							</Text>
+						</View>
+
+						
+						<Image
+							source={require("../../../assets/delivery.jpg")}
+							resizeMode="contain"
+							style={{
+								width: 135,
+								height: 155,
+							}}
+						/>
+					</View>
+				</View>
 
 				<View className="mt-6 px-5">
 					<Text className="mb-4 text-lg font-bold text-[#102A43]">

@@ -6,12 +6,10 @@ import { Animated, Text, View } from "react-native";
 
 const route = [
   { x: 0, y: 0 },
-  { x: 0, y: 22 },
   { x: 28, y: 22 },
   { x: 28, y: 92 },
   { x: 118, y: 92 },
   { x: 118, y: 162 },
-  { x: 160, y: 162 },
   { x: 270, y: 162 },
 ];
 
@@ -62,18 +60,7 @@ export default function OrderMap({ onDeliveryComplete }: Props) {
           useNativeDriver: true,
         }),
 
-        Animated.timing(position, {
-          toValue: route[6],
-          duration: 2000,
-          useNativeDriver: true,
-        }),
-
-        Animated.timing(position, {
-          toValue: route[7],
-          duration: 1500,
-          useNativeDriver: true,
-        }),
-
+        
       ]).start(({ finished }) => {
         if (finished) {
           onDeliveryComplete();
@@ -167,6 +154,59 @@ export default function OrderMap({ onDeliveryComplete }: Props) {
           transform: [{ rotate: "-25deg" }],
         }}
       />
+
+      {/* Rota azul - trecho vertical */}
+      <View
+        style={{
+          position: "absolute",
+          left: 70,
+          top: 62,
+          width: 4,
+          height: 70,
+          backgroundColor: "#2563EB",
+          borderRadius: 2,
+        }}
+      />
+
+      {/* Rota azul - trecho horizontal */}
+      <View
+        style={{
+          position: "absolute",
+          left: 72,
+          top: 130,
+          width: 90,
+          height: 4,
+          backgroundColor: "#2563EB",
+          borderRadius: 2,
+        }}
+      />
+
+      {/* Rota azul - segundo trecho vertical */}
+      <View
+        style={{
+          position: "absolute",
+          left: 160,
+          top: 132,
+          width: 4,
+          height: 70,
+          backgroundColor: "#2563EB",
+          borderRadius: 2,
+        }}
+      />
+
+      {/* Rota azul - trecho final horizontal */}
+      <View
+        style={{
+          position: "absolute",
+          left: 162,
+          top: 200,
+          width: 145,
+          height: 4,
+          backgroundColor: "#2563EB",
+          borderRadius: 2,
+        }}
+      />
+
 
       {/* Restaurante */}
       <View className="absolute left-6 top-5 items-center">
