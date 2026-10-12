@@ -1,56 +1,104 @@
-# Welcome to your Expo app 👋
+# 🍔 Delivery App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo de delivery desenvolvido com React Native, Expo e TypeScript, com foco em uma experiência de compra simples, navegação intuitiva e acompanhamento simulado de pedidos.
 
-## Get started
+O projeto foi desenvolvido como parte do meu portfólio, com o objetivo de praticar desenvolvimento mobile, componentização, gerenciamento de estado e navegação entre telas.
 
-1. Install dependencies
+## 🚀 Demonstração
 
-   ```bash
-   npm install
-   ```
+* **Aplicativo online:** a ser disponibilizado.
+* **Repositório:** adicione aqui o link do seu GitHub.
 
-2. Start the app
+## 📱 Funcionalidades
 
-   ```bash
-   npx expo start
-   ```
+* **Home:** banner promocional e navegação por categorias.
+* **Pesquisa de restaurantes:** busca por nome ou categoria, combinada com os filtros da Home.
+* **Restaurantes e produtos:** visualização de estabelecimentos e seleção de produtos.
+* **Carrinho:** gerenciamento dos itens selecionados e indicador da quantidade de itens.
+* **Checkout:** fluxo de confirmação de pedidos simulados.
+* **Meus pedidos:** visualização do pedido atual e acesso ao acompanhamento.
+* **Acompanhamento da entrega:** timeline de status, mapa ilustrativo e animação de uma moto percorrendo uma rota simulada.
+* **Perfil:** tela com informações demonstrativas do usuário.
 
-In the output, you'll find options to open the app in a
+## 🛠️ Tecnologias utilizadas
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+* React Native
+* Expo
+* TypeScript
+* Expo Router
+* NativeWind
+* Zustand
+* Lucide React Native
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🎨 Interface
 
-## Get a fresh project
+O aplicativo utiliza uma identidade visual baseada em azul-marinho, tons claros e detalhes em amarelo, buscando proporcionar uma interface moderna, organizada e consistente.
 
-When you're ready, run:
+## ⚙️ Como executar o projeto
+
+### Pré-requisitos
+
+* Node.js instalado.
+* npm instalado.
+* Git instalado.
+* Expo Go, caso queira testar o projeto em um dispositivo físico durante o desenvolvimento.
+
+### Instalação
+
+Clone o repositório:
 
 ```bash
-npm run reset-project
+git clone URL_DO_SEU_REPOSITORIO
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Entre na pasta do projeto:
 
-### Other setup steps
+```bash
+cd delivery-app
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Instale as dependências:
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Inicie o Expo:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx expo start
+```
 
-## Join the community
+Para executar a versão web:
 
-Join our community of developers creating universal apps.
+```bash
+npx expo start --web
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Para gerar uma compilação web:
+
+```bash
+npx expo export --platform web
+```
+
+## 🛵 Sobre a simulação de entrega
+
+O acompanhamento utiliza um mapa ilustrativo, uma rota definida no código e uma animação para representar o deslocamento do entregador.
+
+A movimentação e as mudanças de status são simuladas. O projeto não realiza entregas reais, não utiliza rastreamento GPS real do entregador e não processa pagamentos reais.
+
+## 🔮 Possíveis melhorias futuras
+
+* Backend e banco de dados.
+* Autenticação de usuários.
+* Histórico persistente de pedidos.
+* Cadastro e edição de endereços.
+* Integração com pagamentos.
+* Rastreamento de entregas com localização real.
+* Painel administrativo para restaurantes e pedidos.
+
+## 👨‍💻 Objetivo do projeto
+
+Este projeto tem como objetivo demonstrar conhecimentos em React Native, TypeScript, desenvolvimento de interfaces reutilizáveis, navegação, gerenciamento de estado e implementação de fluxos de compra e entrega simulados.
+
+Desenvolvido para fins de aprendizado e portfólio profissional.
