@@ -12,7 +12,8 @@ import { useState } from "react";
 
 export default function Home() {
 	const router = useRouter();
-	const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+	const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+	const [searchText, setSearchText] = useState("");
 
 
 
@@ -34,17 +35,20 @@ export default function Home() {
 		setSelectedCategory(categoryName);
 	};
 
+	const search = searchText.trim().toLowerCase();
 	const filteredRestaurants = restaurants.filter((restaurant) => {
-		if (selectedCategory === null) {
-			return true;
-		}
+		const category =
+			selectedCategory === "Lanches" ? "Hambúrguer" : selectedCategory;
 
-		const categoryToFilter =
-			selectedCategory === "Lanches"
-				? "Hambúrguer"
-				: selectedCategory;
+		const matchesCategory =
+			category === null || restaurant.category === category;
 
-		return restaurant.category === categoryToFilter;
+			const matchesSearch =
+			`${restaurant.name} ${restaurant.category}`
+			  .toLowerCase()
+			  .includes(search);
+
+			  return matchesCategory && matchesSearch;
 	});
 
 
@@ -53,7 +57,10 @@ export default function Home() {
 			<ScrollView showsVerticalScrollIndicator={false}>
 
 				<Header />
-				<SearchBar />
+				<SearchBar
+					value={searchText}
+					onChangeText={setSearchText}
+				/>
 
 
 				<View className="mx-5 mt-6 overflow-hidden rounded-3xl bg-[#102A43]">
