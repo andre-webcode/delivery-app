@@ -2,15 +2,18 @@ import { Header } from "@/components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SearchBar } from "@/components/SearchBar";
 import { CategoryItem } from "@/components/CategoryItem";
-import { FlatList, Image, ScrollView, Text, View } from "react-native";
+import { FlatList, Image, LayoutChangeEvent, Pressable, ScrollView, Text, View } from "react-native";
 import { CupSoda, Fish, IceCreamBowl, Pizza, Sandwich, Utensils } from "lucide-react-native";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { restaurants } from "@/data/restaurants";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 
 
 export default function Home() {
 	const router = useRouter();
+	const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+
 
 
 	const handleRestaurantPress = (id: number) => {
@@ -22,6 +25,27 @@ export default function Home() {
 		})
 	}
 
+	const handleCategoryPress = (categoryName: string) => {
+		if (selectedCategory === categoryName) {
+			setSelectedCategory(null);
+			return;
+		}
+
+		setSelectedCategory(categoryName);
+	};
+
+	const filteredRestaurants = restaurants.filter((restaurant) => {
+		if (selectedCategory === null) {
+			return true;
+		}
+
+		const categoryToFilter =
+			selectedCategory === "Lanches"
+				? "Hambúrguer"
+				: selectedCategory;
+
+		return restaurant.category === categoryToFilter;
+	});
 
 
 	return (
@@ -31,10 +55,10 @@ export default function Home() {
 				<Header />
 				<SearchBar />
 
-			
+
 				<View className="mx-5 mt-6 overflow-hidden rounded-3xl bg-[#102A43]">
 					<View className="h-48 flex-row items-center px-4 py-3">
-						
+
 						<View className="z-10 flex-1 pr-1">
 							<Text className="self-start rounded-full bg-[#FDE68A] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#102A43]">
 								Oferta especial
@@ -47,9 +71,10 @@ export default function Home() {
 							<Text className="mt-2 text-sm leading-5 text-[#D9E8F5]">
 								Peça seus favoritos e receba com praticidade.
 							</Text>
+
 						</View>
 
-						
+
 						<Image
 							source={require("../../../assets/delivery.jpg")}
 							resizeMode="contain"
@@ -71,12 +96,35 @@ export default function Home() {
 						showsHorizontalScrollIndicator={false}
 					>
 						<View className="flex-row gap-5 px-5">
-							<CategoryItem icon={Sandwich} name="Lanches" />
-							<CategoryItem icon={Pizza} name="Pizza" />
-							<CategoryItem icon={Utensils} name="Fritas" />
-							<CategoryItem icon={CupSoda} name="Bebidas" />
-							<CategoryItem icon={IceCreamBowl} name="Sobremesas" />
-							<CategoryItem icon={Fish} name="Sushi" />
+							<CategoryItem icon={Sandwich} name="Lanches"
+								onPress={handleCategoryPress}
+								isSelected={selectedCategory === "Lanches"}
+							/>
+
+							<CategoryItem icon={Pizza} name="Pizza"
+								onPress={handleCategoryPress}
+								isSelected={selectedCategory === "Pizza"}
+							/>
+
+							<CategoryItem icon={Utensils} name="Fritas"
+								onPress={handleCategoryPress}
+								isSelected={selectedCategory === "Fritas"}
+							/>
+
+							<CategoryItem icon={CupSoda} name="Bebidas"
+								onPress={handleCategoryPress}
+								isSelected={selectedCategory === "Bebidas"}
+							/>
+
+							<CategoryItem icon={IceCreamBowl} name="Sobremesas"
+								onPress={handleCategoryPress}
+								isSelected={selectedCategory === "Sobremesas"}
+							/>
+
+							<CategoryItem icon={Fish} name="Sushi"
+								onPress={handleCategoryPress}
+								isSelected={selectedCategory === "Sushi"}
+							/>
 						</View>
 					</ScrollView>
 				</View>
@@ -88,7 +136,7 @@ export default function Home() {
 					</Text>
 
 					<FlatList
-						data={restaurants}
+						data={filteredRestaurants}
 						keyExtractor={(item) => item.id.toString()}
 						showsHorizontalScrollIndicator={false}
 						className="w-full"
