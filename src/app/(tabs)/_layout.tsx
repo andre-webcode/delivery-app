@@ -26,16 +26,6 @@ export default function TabLayout() {
                 }}
             />
 
-            <Tabs.Screen
-                name="search"
-                options={{
-                    title: "Buscar",
-                    tabBarIcon: ({ color, size }) => (
-                        <Search color={color} size={size} />
-                    ),
-
-                }}
-            />
 
             <Tabs.Screen
                 name="cart"
