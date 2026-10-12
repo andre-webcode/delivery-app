@@ -9,7 +9,7 @@ export default function Profile() {
         showsVerticalScrollIndicator={false}
         contentContainerClassName="px-5 pb-8"
       >
-        {/* Cabeçalho */}
+        
         <View className="pb-6 pt-4">
           <Text className="text-2xl font-extrabold text-[#102A43]">
             Meu perfil
@@ -20,7 +20,7 @@ export default function Profile() {
           </Text>
         </View>
 
-        {/* Cartão do usuário */}
+       
         <View className="flex-row items-center rounded-3xl bg-[#102A43] p-5">
           <View className="h-16 w-16 items-center justify-center rounded-full bg-[#FDE68A]">
             <UserRound size={30} color="#102A43" />
@@ -37,7 +37,7 @@ export default function Profile() {
           </View>
         </View>
 
-        {/* Informações da conta */}
+        
         <View className="mt-7">
           <Text className="mb-3 text-lg font-bold text-[#102A43]">
             Dados da conta
@@ -68,7 +68,7 @@ export default function Profile() {
           </View>
         </View>
 
-        {/* Endereço de entrega */}
+       
         <View className="mt-6">
           <Text className="mb-3 text-lg font-bold text-[#102A43]">
             Endereço de entrega
@@ -91,7 +91,7 @@ export default function Profile() {
           </View>
         </View>
 
-        {/* Sobre o aplicativo */}
+        
         <View className="mt-6 rounded-2xl bg-[#E8EEF5] p-4">
           <Text className="font-bold text-[#102A43]">
             Sobre o aplicativo
